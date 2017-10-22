@@ -18,6 +18,6 @@ public class PictureTile extends Tile{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Image img = getToolkit().getImage(getClass().getResource("images/" + name + ".png"));
-        g.drawImage(img, 15,15,40,40, this);
+        g.drawImage(img, side + width/10,height/5,(width/5)*4,(width/5)*4, this);
     }
 }

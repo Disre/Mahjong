@@ -1,7 +1,34 @@
 import java.awt.*;
 import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CharacterTile extends Tile {
+
+	private static Font chinese;
+	private static Font big;
+	private static Map<String, String> numbers = new HashMap<String, String>();
+	private static Map<String, String> winds = new HashMap<String, String>();
+	static {
+		chinese = new Font("Roman", 3, width/2);
+		big = new Font("Roman", 3, (width/6)*5);
+
+		numbers.put("1","\u4E00");
+		numbers.put("2","\u4E8C");
+		numbers.put("3","\u4E09");
+		numbers.put("4","\u56DB");
+		numbers.put("5","\u4E94");
+		numbers.put("6","\u516D");
+		numbers.put("7","\u4E03");
+		numbers.put("8","\u516B");
+		numbers.put("9","\u4E5D");
+		winds.put("N", "\u5317");
+		winds.put("E", "\u6771");
+		winds.put("W", "\u897F");
+		winds.put("S", "\u5357");
+		winds.put("C", "\u4E2D");
+		winds.put("F", "\u767C");
+	}
 	protected char symbol;
 
 	public CharacterTile(char symbol) {
@@ -46,80 +73,21 @@ public class CharacterTile extends Tile {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.RED);
-		g.drawString(String.valueOf(this.symbol),45,15);
-		if (Character.isDigit(this.symbol)) {
-			g.setFont(new Font("Roman", 3, getWidth()/2));
-			g.drawString("\u842C", 16,65);
+		g.drawString(String.valueOf(this.symbol),side + width - (width/4),height/6);
+		if (numbers.containsKey(Character.toString(symbol))) {
+			g.setFont(chinese);
+			g.drawString("\u842C", side + width/5,height - (height/10));
 			g.setColor(Color.black);
-			g.setFont(new Font("Roman", 3, getWidth()/4));
-			switch (this.symbol) {
-				case '1':
-					g.drawString("\u4E00", 25,30);
-					break;
-
-				case '2':
-					g.drawString("\u4E8C", 25,30);
-					break;
-
-				case '3':
-					g.drawString("\u4E09", 25,30);
-					break;
-
-				case '4':
-					g.drawString("\u56DB", 25,30);
-					break;
-
-				case '5':
-					g.drawString("\u4E94", 25,30);
-					break;
-
-				case '6':
-					g.drawString("\u516D", 25,30);
-					break;
-
-				case '7':
-					g.drawString("\u4E03", 25,30);
-					break;
-
-				case '8':
-					g.drawString("\u516B", 25,30);
-					break;
-
-				case '9':
-					g.drawString("\u4E5d", 25,30);
-					break;
-			}
-		} else {
+			g.drawString(numbers.get(Character.toString(symbol)), side + width/5,height/2);
+		} else if (winds.containsKey(Character.toString(symbol))){
 			g.setColor(Color.black);
-			g.setFont(new Font("Roman", 3, getWidth()-20));
-			switch (this.symbol) {
-
-				case 'N':
-					g.drawString("\u5317", 7,60);
-					break;
-
-				case 'E':
-					g.drawString("\u6771", 7,60);
-					break;
-
-				case 'W':
-					g.drawString("\u897F", 7,60);
-					break;
-
-				case 'S':
-					g.drawString("\u5357", 7,60);
-					break;
-
-				case 'C':
-					g.setColor(Color.RED);
-					g.drawString("\u4E2D", 7,60);
-					break;
-
-				case 'F':
-					g.setColor(Color.green);
-					g.drawString("\u767C", 7,60);
-					break;
-			}
+			g.setFont(big);
+			if (symbol == 'C')
+				g.setColor(Color.RED);
+			if (symbol == 'F')
+				g.setColor(Color.decode("#008000"));
+			g.drawString(winds.get(Character.toString((symbol))), side + width/20,(height/6)*5);
 		}
 	}
+
 }
