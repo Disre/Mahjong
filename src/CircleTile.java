@@ -11,33 +11,33 @@ public class CircleTile extends RankTile {
     private static int x2; //case 3, 5
     private static int x3; //case 3, 4, 5, 6
     private static int x4; //case 3, 4, 5, 6
-    private static int x5;
-    private static int x6;
-    private static int x7;
-    private static int x8;
-    private static int x9;
-    private static int x10;
-    private static int x11;
+    private static int x5; //case 7, 9
+    private static int x6; //case 7
+    private static int x7; //case 7
+    private static int x8; //case 7, 8
+    private static int x9; //case 7, 8
+    private static int x10; //case 9
+    private static int x11; //case 9
 
     private static int y1; //case 2
     private static int y2; //case 2
     private static int y3; //case 3, 5, 6
     private static int y4; //case 3, 5, 6
     private static int y5; //case 3, 5, 6
-    private static int y6;
-    private static int y7;
-    private static int y8;
-    private static int y9;
-    private static int y10;
-    private static int y11;
-    private static int y12;
-    private static int y13;
-    private static int y14;
-    private static int y15;
-    private static int y16;
-    private static int y17;
-    private static int y18;
-    private static int y19;
+    private static int y6; //case 4
+    private static int y7; //case 4
+    private static int y8; //case 7
+    private static int y9; //case 7
+    private static int y10; //case 7
+    private static int y11; //case 7
+    private static int y12; //case 7
+    private static int y13; //case 8
+    private static int y14; //case 8
+    private static int y15; //case 8
+    private static int y16; //case 8
+    private static int y17; //case 9
+    private static int y18; //case 9
+    private static int y19; //case 9
 
 
 
@@ -190,5 +190,8 @@ public class CircleTile extends RankTile {
         g2.setStroke(new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0));
         g.setColor(Color.white);
         g.drawOval(x + diameter/6, y + diameter/6, diameter/12*9, diameter/12*9);
+        g.setColor(Color.black);
+        g2.setStroke(new BasicStroke(2));
+        g.drawOval(x, y, diameter, diameter);
     }
 }
