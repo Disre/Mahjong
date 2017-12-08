@@ -3,6 +3,10 @@ import javax.swing.JPanel;
 
 public class Tile extends JPanel {
 
+	private int row;
+	private int column;
+	private int layer;
+
 	protected static int height;
 	protected static int width;
 	protected static int side;
@@ -69,7 +73,7 @@ public class Tile extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+//        super.paintComponent(g);
 	    Graphics2D g2 = (Graphics2D) g;
 	    g2.setPaint(main);
 	    g.fillRect(side, 0, width, height);
@@ -94,5 +98,35 @@ public class Tile extends JPanel {
 	    g.drawRect(side, 0, width, height);
 
     }
+
+    public void setPosition(int row, int column, int layer) {
+	    this.column = column;
+	    this.row = row;
+	    this.layer = layer;
+    }
+
+//    public void setRow(int y) {
+//		this.y = y;
+//    }
+//
+//	public void setColumn(int x) {
+//		this.x = x;
+//	}
+//
+//	public void setLayer(int z) {
+//		this.z = z;
+//	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public int getLayer() {
+		return layer;
+	}
 }
 
