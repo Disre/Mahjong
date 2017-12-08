@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public class Model {
 
-	private static ArrayList<ArrayList<Tile>> layer0 = new ArrayList<ArrayList<Tile>>();
-	private static ArrayList<ArrayList<Tile>> layer1 = new ArrayList<ArrayList<Tile>>();
-	private static ArrayList<ArrayList<Tile>> layer2 = new ArrayList<ArrayList<Tile>>();
-	private static ArrayList<ArrayList<Tile>> layer3 = new ArrayList<ArrayList<Tile>>();
-	private static ArrayList<ArrayList<Tile>> layer4 = new ArrayList<ArrayList<Tile>>();
+	private static ArrayList<ArrayList<Tile>> layer0 = new ArrayList<>();
+	private static ArrayList<ArrayList<Tile>> layer1 = new ArrayList<>();
+	private static ArrayList<ArrayList<Tile>> layer2 = new ArrayList<>();
+	private static ArrayList<ArrayList<Tile>> layer3 = new ArrayList<>();
+	private static ArrayList<ArrayList<Tile>> layer4 = new ArrayList<>();
 
 	public Model (ArrayList<Tile> tiles) {
-		ArrayList<Tile> tile = new ArrayList<Tile>(tiles);
+		ArrayList<Tile> tile = new ArrayList<>(tiles);
 		randomizeTiles(tile);
 	}
 
@@ -29,12 +29,15 @@ public class Model {
 	}
 
 	private void randomizeTiles(ArrayList<Tile> tiles) {
+		int num = 0;
 		int rand;
 		rand = (int) ((Math.random() * tiles.size()));
+		tiles.get(rand).setPosition(4, 7, 4);
 		layer4.add(new ArrayList<>());
 		layer4.get(0).add(tiles.get(rand));
 //		layer4.add(tiles.get(rand));
 		tiles.remove(rand);
+		num++;
 
 		for (int i = 0; i < 2; i++) {
 			layer3.add(new ArrayList<>());
@@ -43,6 +46,7 @@ public class Model {
 				tiles.get(rand).setPosition(i+3, x+6, 3);
 				layer3.get(i).add(tiles.get(rand));
 				tiles.remove(rand);
+				num++;
 			}
 		}
 
@@ -53,6 +57,7 @@ public class Model {
 				tiles.get(rand).setPosition(i+2, x+5, 2);
 				layer2.get(i).add(tiles.get(rand));
 				tiles.remove(rand);
+				num++;
 			}
 		}
 
@@ -63,6 +68,7 @@ public class Model {
 				tiles.get(rand).setPosition(i+1, x+4, 1);
 				layer1.get(i).add(tiles.get(rand));
 				tiles.remove(rand);
+				num++;
 			}
 		}
 
@@ -72,6 +78,7 @@ public class Model {
 			tiles.get(rand).setPosition(0, i+1, 0);
 			layer0.get(0).add(tiles.get(rand));
 			tiles.remove(rand);
+			num++;
 		}
 
 		layer0.add(new ArrayList<>());
@@ -80,6 +87,7 @@ public class Model {
 			tiles.get(rand).setPosition(1, i+3, 0);
 			layer0.get(1).add(tiles.get(rand));
 			tiles.remove(rand);
+			num++;
 		}
 
 		layer0.add(new ArrayList<>());
@@ -88,6 +96,7 @@ public class Model {
 			tiles.get(rand).setPosition(2, i+2, 0);
 			layer0.get(2).add(tiles.get(rand));
 			tiles.remove(rand);
+			num++;
 		}
 
 		layer0.add(new ArrayList<>());
@@ -96,6 +105,7 @@ public class Model {
 			tiles.get(rand).setPosition(3, i+1, 0);
 			layer0.get(3).add(tiles.get(rand));
 			tiles.remove(rand);
+			num++;
 		}
 
 		layer0.add(new ArrayList<>());
@@ -104,6 +114,7 @@ public class Model {
 			tiles.get(rand).setPosition(4, i+1, 0);
 			layer0.get(4).add(tiles.get(rand));
 			tiles.remove(rand);
+			num++;
 		}
 
 		layer0.add(new ArrayList<>());
@@ -112,6 +123,7 @@ public class Model {
 			tiles.get(rand).setPosition(5, i+2, 0);
 			layer0.get(5).add(tiles.get(rand));
 			tiles.remove(rand);
+			num++;
 		}
 
 		layer0.add(new ArrayList<>());
@@ -120,6 +132,7 @@ public class Model {
 			tiles.get(rand).setPosition(6, i+3, 0);
 			layer0.get(6).add(tiles.get(rand));
 			tiles.remove(rand);
+			num++;
 		}
 
 		layer0.add(new ArrayList<>());
@@ -128,6 +141,7 @@ public class Model {
 			tiles.get(rand).setPosition(7, i+1, 0);
 			layer0.get(7).add(tiles.get(rand));
 			tiles.remove(rand);
+			num++;
 		}
 
 		layer0.add(new ArrayList<>());
@@ -135,16 +149,20 @@ public class Model {
 		tiles.get(rand).setPosition(8, 0, 0);
 		layer0.get(8).add(tiles.get(rand));
 		tiles.remove(rand);
+		num++;
 
 		rand = (int) ((Math.random() * tiles.size()));
 		tiles.get(rand).setPosition(8, 13, 0);
 		layer0.get(8).add(tiles.get(rand));
 		tiles.remove(rand);
+		num++;
 
 		rand = (int) ((Math.random() * tiles.size()));
 		tiles.get(rand).setPosition(8, 14, 0);
 		layer0.get(8).add(tiles.get(rand));
 		tiles.remove(rand);
+		num++;
+		System.out.println(num);
 	}
 
 	//	public Tile getTile(int x, int y, int z) {

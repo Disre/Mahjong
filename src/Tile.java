@@ -66,10 +66,7 @@ public class Tile extends JPanel {
 //            return true;
 //        if (other == null)
 //            return false;
-        if (getClass() == other.getClass())
-            return true;
-        else
-            return false;
+	    return getClass() == other.getClass();
     }
 
     public void paintComponent(Graphics g) {
