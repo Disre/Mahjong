@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Board extends JPanel{
 
@@ -10,6 +10,7 @@ public class Board extends JPanel{
 	private static int side = 10;
 	private Model model;
 	private Tile selected;
+	private Stack<Tile> moves = new Stack();
 
 	public Board() {
 		setLayout(null);
@@ -40,6 +41,8 @@ public class Board extends JPanel{
 						if (selected.matches((Tile) e.getSource())) {
 							selected.setVisible(false);
 							((Tile) e.getSource()).setVisible(false);
+							moves.push(selected);
+							moves.push((Tile) e.getSource());
 							selected = null;
 						} else
 							selected = (Tile)e.getSource();
@@ -47,7 +50,20 @@ public class Board extends JPanel{
 				}
 			}
 		});
-		add(t);
+		add(t, t.getzOrder());
+	}
+
+	public void undoMove() {
+		if (moves.size() != 0) {
+			moves.pop().setVisible(true);
+			moves.pop().setVisible(true);
+		}
+	}
+
+
+	public void resetGame() {
+		while (moves. size() != 0)
+			moves.pop().setVisible(true);
 	}
 
 	private void layoutTiles() {
@@ -65,13 +81,13 @@ public class Board extends JPanel{
 						zOrder++;
 					}
 					addTile(layer.get(x).get(i), zOrder);
+					zOrder++;
 					if (y == 0 && x == 3 && i == 11) {
 						addTile(layer.get(8).get(1), zOrder);
 						zOrder++;
 						addTile(layer.get(8).get(2), zOrder);
 						zOrder++;
 					}
-					zOrder++;
 				}
 
 			}

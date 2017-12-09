@@ -2,13 +2,13 @@ import java.util.ArrayList;
 
 public class Model {
 
-	private static ArrayList<Tile> tiles = new ArrayList<>();
+	private ArrayList<Tile> tiles = new ArrayList<>();
 
-	private static ArrayList<ArrayList<Tile>> layer0 = new ArrayList<>();
-	private static ArrayList<ArrayList<Tile>> layer1 = new ArrayList<>();
-	private static ArrayList<ArrayList<Tile>> layer2 = new ArrayList<>();
-	private static ArrayList<ArrayList<Tile>> layer3 = new ArrayList<>();
-	private static ArrayList<ArrayList<Tile>> layer4 = new ArrayList<>();
+	private ArrayList<ArrayList<Tile>> layer0 = new ArrayList<>();
+	private ArrayList<ArrayList<Tile>> layer1 = new ArrayList<>();
+	private ArrayList<ArrayList<Tile>> layer2 = new ArrayList<>();
+	private ArrayList<ArrayList<Tile>> layer3 = new ArrayList<>();
+	private ArrayList<ArrayList<Tile>> layer4 = new ArrayList<>();
 
 	public Model () {
 		prepareTiles();
@@ -35,7 +35,6 @@ public class Model {
 			for (int x = 0; x < getLayer(layer).get(i).size(); x++)
 				if (getLayer(layer).get(i).get(x).getRow() == row && getLayer(layer).get(i).get(x).getColumn() == column)
 					return getLayer(layer).get(i).get(x);
-		System.out.println("null");
 		return null;
 	}
 
