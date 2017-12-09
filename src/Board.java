@@ -44,6 +44,10 @@ public class Board extends JPanel{
 							moves.push(selected);
 							moves.push((Tile) e.getSource());
 							selected = null;
+							if (moves.size() == 144)
+								youWin();
+							if (model.didILose())
+								youLost();
 						} else
 							selected = (Tile)e.getSource();
 					}
@@ -53,13 +57,20 @@ public class Board extends JPanel{
 		add(t, t.getzOrder());
 	}
 
+	private void youLost() {
+		JOptionPane.showMessageDialog(this, "There are no more moves available.");
+	}
+
+	private void youWin() {
+		JOptionPane.showMessageDialog(this, "You won!");
+	}
+
 	public void undoMove() {
 		if (moves.size() != 0) {
 			moves.pop().setVisible(true);
 			moves.pop().setVisible(true);
 		}
 	}
-
 
 	public void resetGame() {
 		while (moves. size() != 0)
