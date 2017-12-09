@@ -2,15 +2,41 @@ import java.util.ArrayList;
 
 public class Model {
 
+	private static ArrayList<Tile> tiles = new ArrayList<>();
+
 	private static ArrayList<ArrayList<Tile>> layer0 = new ArrayList<>();
 	private static ArrayList<ArrayList<Tile>> layer1 = new ArrayList<>();
 	private static ArrayList<ArrayList<Tile>> layer2 = new ArrayList<>();
 	private static ArrayList<ArrayList<Tile>> layer3 = new ArrayList<>();
 	private static ArrayList<ArrayList<Tile>> layer4 = new ArrayList<>();
 
-	public Model (ArrayList<Tile> tiles) {
-		ArrayList<Tile> tile = new ArrayList<>(tiles);
-		randomizeTiles(tile);
+	public Model () {
+		prepareTiles();
+		randomizeTiles(tiles);
+	}
+
+	public boolean isTileOpen(Tile t) {
+		if (t.getLayer() == 4)
+			return true;
+		if (t.getLayer() == 3 && layer4.get(0).get(0).isVisible())
+				return false;
+		if (t.getLayer() <= 2)
+			if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1) != null)
+				if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1).isVisible())
+					return false;
+		if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()) != null && getTile(t.getRow(), t.getColumn()+1, t.getLayer()) != null)
+			if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()).isVisible() && getTile(t.getRow(), t.getColumn()+1, t.getLayer()).isVisible())
+				return false;
+		return true;
+	}
+
+	private Tile getTile(int row, int column, int layer) {
+		for (int i = 0; i < getLayer(layer).size(); i++)
+			for (int x = 0; x < getLayer(layer).get(i).size(); x++)
+				if (getLayer(layer).get(i).get(x).getRow() == row && getLayer(layer).get(i).get(x).getColumn() == column)
+					return getLayer(layer).get(i).get(x);
+		System.out.println("null");
+		return null;
 	}
 
 	public ArrayList<ArrayList<Tile>> getLayer(int layer) {
@@ -26,6 +52,41 @@ public class Model {
 			return layer4;
 		else
 			return null;
+	}
+
+	private void prepareTiles() {
+
+		tiles.add(new FlowerTile("Bamboo"));
+		tiles.add(new FlowerTile("Chrysanthemum"));
+		tiles.add(new FlowerTile("Orchid"));
+		tiles.add(new FlowerTile("Plum"));
+		tiles.add(new SeasonTile("Fall"));
+		tiles.add(new SeasonTile("Spring"));
+		tiles.add(new SeasonTile("Summer"));
+		tiles.add(new SeasonTile("Winter"));
+
+		for (int i = 0; i < 4; i++)
+		{
+			for (int x = 0; x < 9; x++)
+			{
+				tiles.add(new CharacterTile(Character.forDigit(x+1, 10)));
+				tiles.add(new CircleTile(x+1));
+			}
+
+			for (int x = 0; x < 8; x++)
+			{
+				tiles.add(new BambooTile(x+2));
+			}
+
+			tiles.add(new Bamboo1Tile());
+			tiles.add(new CharacterTile('N'));
+			tiles.add(new CharacterTile('W'));
+			tiles.add(new CharacterTile('E'));
+			tiles.add(new CharacterTile('S'));
+			tiles.add(new CharacterTile('C'));
+			tiles.add(new CharacterTile('F'));
+			tiles.add(new WhiteDragonTile());
+		}
 	}
 
 	private void randomizeTiles(ArrayList<Tile> tiles) {
@@ -165,15 +226,4 @@ public class Model {
 		System.out.println(num);
 	}
 
-	//	public Tile getTile(int x, int y, int z) {
-//		for (Tile t :tiles) {
-//			if (t.getRow() == x && t.getColumn() == y && t.getLayer() == z)
-//				return t;
-//		}
-//		return null;
-//	}
-
-//	public boolean isTileOpen(Tile t) {
-//
-//	}
 }

@@ -38,8 +38,10 @@ public class CharacterTile extends Tile {
 	}
 
 	public boolean matches(Tile other) {
-		CharacterTile otherTile = (CharacterTile) other;
-		return super.matches(other) && this.symbol == otherTile.symbol;
+		if(!super.matches(other))
+			return false;
+		CharacterTile otherT = (CharacterTile) other;
+		return this.symbol == otherT.symbol;
 	}
 
 	@Override

@@ -6,6 +6,7 @@ public class Tile extends JPanel {
 	private int row;
 	private int column;
 	private int layer;
+	private int zOrder;
 
 	protected static int height;
 	protected static int width;
@@ -62,10 +63,10 @@ public class Tile extends JPanel {
     }
 
     public boolean matches(Tile other) {
-//        if (this == other)
-//            return true;
-//        if (other == null)
-//            return false;
+	    if (this == other)
+		    return false;
+	    if (other == null)
+		    return false;
 	    return getClass() == other.getClass();
     }
 
@@ -100,19 +101,12 @@ public class Tile extends JPanel {
 	    this.column = column;
 	    this.row = row;
 	    this.layer = layer;
+
     }
 
-//    public void setRow(int y) {
-//		this.y = y;
-//    }
-//
-//	public void setColumn(int x) {
-//		this.x = x;
-//	}
-//
-//	public void setLayer(int z) {
-//		this.z = z;
-//	}
+    public void setzOrder(int zOrder) {
+	    this.zOrder = zOrder;
+    }
 
 	public int getRow() {
 		return row;
@@ -124,6 +118,10 @@ public class Tile extends JPanel {
 
 	public int getLayer() {
 		return layer;
+	}
+
+	public int getzOrder() {
+		return zOrder;
 	}
 }
 

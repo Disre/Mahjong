@@ -8,31 +8,21 @@ public class Board extends JPanel{
 	private static int x = 220;
 	private static int y = 95;
 	private static int side = 10;
-	private static ArrayList<Tile> tiles = new ArrayList<>();
 	private Model model;
+	private Tile selected;
 
 	public Board() {
 		setLayout(null);
 		setPreferredSize(getSize());
-		setBackground(Color.orange);
-		prepareTiles();
-		model = new Model(tiles);
-		for (Tile t :tiles) {
-//			t.setSize(60, 85);
-//			t.setLocation((x + (t.getColumn() * 50) + t.getLayer() * side), (x + (t.getRow() * 75) - t.getLayer() * side));
-//			add(t);
-			t.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					((Tile) e.getSource()).setVisible(false);
-				}
-			});
-		}
+		setBackground(Color.decode("#8caad2"));
+		model = new Model();
 		layoutTiles();
 		setVisible(true);
 		this.repaint();
 	}
 
-	private void addTile(Tile t) {
+	private void addTile(Tile t, int zOrder) {
+		t.setzOrder(zOrder);
 		t.setSize(60, 85);
 		if (t.getLayer() == 4) {
 			t.setLocation((x + (t.getColumn() * 50) + t.getLayer() * side) -30, (y + (t.getRow() * 75) - t.getLayer() * side) - 42);
@@ -41,12 +31,28 @@ public class Board extends JPanel{
 		} else {
 			t.setLocation((x + (t.getColumn() * 50) + t.getLayer() * side), (y + (t.getRow() * 75) - t.getLayer() * side));
 		}
+		t.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (model.isTileOpen((Tile) e.getSource())) {
+					if (selected == null) {
+						selected = (Tile)e.getSource();
+					} else if (selected != null) {
+						if (selected.matches((Tile) e.getSource())) {
+							selected.setVisible(false);
+							((Tile) e.getSource()).setVisible(false);
+							selected = null;
+						} else
+							selected = (Tile)e.getSource();
+					}
+				}
+			}
+		});
 		add(t);
 	}
 
 	private void layoutTiles() {
-		int num = 0;
 		ArrayList<ArrayList<Tile>> layer;
+		int zOrder = 0;
 
 		for (int y = 4; y > -1; y--) {
 			layer = model.getLayer(y);
@@ -54,51 +60,21 @@ public class Board extends JPanel{
 				for (int i = 0; i < layer.get(x).size(); i++) {
 					if (y == 0 && x == 8)
 						break;
-					if (y == 0 && x == 4 && i == 0)
-						addTile(layer.get(8).get(0));
-					addTile(layer.get(x).get(i));
-					if (y == 0 && x == 3 && i == 11) {
-						addTile(layer.get(8).get(1));
-						addTile(layer.get(8).get(2));
+					if (y == 0 && x == 4 && i == 0) {
+						addTile(layer.get(8).get(0), zOrder);
+						zOrder++;
 					}
+					addTile(layer.get(x).get(i), zOrder);
+					if (y == 0 && x == 3 && i == 11) {
+						addTile(layer.get(8).get(1), zOrder);
+						zOrder++;
+						addTile(layer.get(8).get(2), zOrder);
+						zOrder++;
+					}
+					zOrder++;
 				}
 
 			}
-		}
-	}
-
-	private void prepareTiles() {
-
-		tiles.add(new FlowerTile("Bamboo"));
-		tiles.add(new FlowerTile("Chrysanthemum"));
-		tiles.add(new FlowerTile("Orchid"));
-		tiles.add(new FlowerTile("Plum"));
-		tiles.add(new SeasonTile("Fall"));
-		tiles.add(new SeasonTile("Spring"));
-		tiles.add(new SeasonTile("Summer"));
-		tiles.add(new SeasonTile("Winter"));
-
-		for (int i = 0; i < 4; i++)
-		{
-			for (int x = 0; x < 9; x++)
-			{
-				tiles.add(new CharacterTile(Character.forDigit(x+1, 10)));
-				tiles.add(new CircleTile(x+1));
-			}
-
-			for (int x = 0; x < 8; x++)
-			{
-				tiles.add(new BambooTile(x+2));
-			}
-
-			tiles.add(new Bamboo1Tile());
-			tiles.add(new CharacterTile('N'));
-			tiles.add(new CharacterTile('W'));
-			tiles.add(new CharacterTile('E'));
-			tiles.add(new CharacterTile('S'));
-			tiles.add(new CharacterTile('C'));
-			tiles.add(new CharacterTile('F'));
-			tiles.add(new WhiteDragonTile());
 		}
 	}
 

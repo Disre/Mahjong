@@ -8,8 +8,10 @@ public class RankTile extends Tile{
     }
 
     public boolean matches(Tile other){
-        RankTile otherTile = (RankTile) other;
-        return super.matches(other) && this.rank == otherTile.rank;
+        if(!super.matches(other))
+            return false;
+        RankTile otherT = (RankTile) other;
+        return this.rank == otherT.rank;
     }
 }
 //
