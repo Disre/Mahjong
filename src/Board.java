@@ -8,6 +8,7 @@ public class Board extends JPanel{
 	private static int x = 220;
 	private static int y = 22;
 	private static int side = 10;
+	private static Fireworks fire;
 	private Model model;
 	private Tile selected;
 	private ArrayList<Tile> moves = new ArrayList();
@@ -15,6 +16,7 @@ public class Board extends JPanel{
 	private JPanel history;
 
 	public Board() {
+		fire = new Fireworks(this);
 		setLayout(null);
 		setPreferredSize(getSize());
 		setBackground(Color.decode("#8caad2"));
@@ -26,6 +28,7 @@ public class Board extends JPanel{
 	}
 
 	public Board(int seed) {
+		fire = new Fireworks(this);
 		setLayout(null);
 		setPreferredSize(getSize());
 		setBackground(Color.decode("#8caad2"));
@@ -59,7 +62,7 @@ public class Board extends JPanel{
 							selected = null;
 							if (moves.size() == 144)
 								youWin();
-							if (model.didILose())
+							else if (model.didILose())
 								youLost();
 						} else {
 							selected.isSelected(false);
@@ -78,8 +81,18 @@ public class Board extends JPanel{
 		JOptionPane.showMessageDialog(this, "There are no more moves available.");
 	}
 
-	private void youWin() {
-		JOptionPane.showMessageDialog(this, "You won!");
+	public void youWin() {
+		setBackground(Color.black);
+		fire.setExplosions(23, 1000);
+		fire.fire();
+//		try
+//		{
+//			Thread.sleep(10000);
+//			fire.stop();
+//		}
+//		catch (InterruptedException ie) {}
+//		JOptionPane.showMessageDialog(this, "You won!");
+
 	}
 
 	private void addHistory(Tile t, Tile t2) {

@@ -4,12 +4,13 @@ import java.awt.event.*;
 sound?
 fireworks/win screen
 show removed tiles
-numbered game
-highlight selected objects √
+numbered game               √
+highlight selected objects  √
+stupid help thing...
 
 optionally :
 redo - extra credit
-lose screen √
+lose screen                 √
 shadows
  */
 public class Mahjong extends JFrame {
@@ -112,6 +113,15 @@ public class Mahjong extends JFrame {
 		JMenuItem rules = new JMenuItem("Game Rules");
 		help.add(operation);
 		help.add(rules);
+
+		JMenuItem fw = new JMenuItem("Fireworks");
+		fw.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gamePlay.youWin();
+			}
+		});
+		help.add(fw);
+
 
 		menu.add(game);
 		menu.add(sound);
