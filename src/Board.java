@@ -96,6 +96,9 @@ public class Board extends JPanel{
 	}
 
 	private void addHistory(Tile t, Tile t2) {
+		PlayClip clip = new PlayClip("audio/stone-scraping.wav", true);
+		clip.play();
+
 		t.isSelected(false);
 		t.setVisible(false);
 		t2.setVisible(false);

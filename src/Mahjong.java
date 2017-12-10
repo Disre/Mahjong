@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.event.*;
 /* to do:
-sound?
-fireworks/win screen
+sound?                      √
+fireworks/win screen        √
 show removed tiles
 numbered game               √
 highlight selected objects  √
@@ -97,6 +97,12 @@ public class Mahjong extends JFrame {
 
 		JMenu sound = new JMenu("Sound");
 		JCheckBoxMenuItem soundToggle = new JCheckBoxMenuItem("Sound On");
+		soundToggle.setState(true);
+		soundToggle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PlayClip.soundToggle();
+			}
+		});
 		sound.add(soundToggle);
 
 		JMenu move = new JMenu("Move");
@@ -110,18 +116,28 @@ public class Mahjong extends JFrame {
 
 		JMenu help = new JMenu("Help");
 		JMenuItem operation = new JMenuItem("Operation");
-		JMenuItem rules = new JMenuItem("Game Rules");
-		help.add(operation);
-		help.add(rules);
-
-		JMenuItem fw = new JMenuItem("Fireworks");
-		fw.addActionListener(new ActionListener() {
+		operation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gamePlay.youWin();
+				new Help("Operations.html", "Operations");
 			}
 		});
-		help.add(fw);
+		help.add(operation);
 
+		JMenuItem rules = new JMenuItem("Game Rules");
+		rules.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Help("Rules.html", "Rules");
+			}
+		});
+		help.add(rules);
+
+//		JMenuItem fw = new JMenuItem("Fireworks");
+//		fw.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				gamePlay.youWin();
+//			}
+//		});
+//		help.add(fw);
 
 		menu.add(game);
 		menu.add(sound);

@@ -138,6 +138,8 @@ public class Tile extends JPanel {
 
 	public void isSelected(boolean b) {
 		if (b) {
+			PlayClip clip = new PlayClip("audio/pop.wav", true);
+			clip.play();
 			selected = true;
 		} else {
 			selected = false;

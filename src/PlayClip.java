@@ -15,6 +15,7 @@ public class PlayClip implements LineListener
 {
 	private	URL	url;
 	private	boolean	showErrors;
+	private static boolean sound = true;
 
 
 
@@ -50,41 +51,35 @@ public class PlayClip implements LineListener
 	
 	public void play()
 	{
-		if (AudioSystem.isLineSupported(Port.Info.SPEAKER))
-		{
-			try
-			{
-				Clip			clip = null;		// the sound clip
-				AudioInputStream	stream = AudioSystem.getAudioInputStream(url);
-				
-				clip = AudioSystem.getClip();
-				clip.addLineListener(this);
-				clip.open(stream);
-				clip.start();
-			}
-			catch (LineUnavailableException lue)
-			{
-				if (showErrors)
-					JOptionPane.showMessageDialog(null,
-							"Speaker is unavailable for playback",
-							"Sound Clip Error",
-							JOptionPane.ERROR_MESSAGE);
-			}
-			catch (UnsupportedAudioFileException uafe)
-			{
-				if (showErrors)
-					JOptionPane.showMessageDialog(null,
-							"Sound clip file type is not supported",
-							"Sound Clip Error",
-							JOptionPane.ERROR_MESSAGE);
-			}
-			catch (IOException ioe)
-			{
-				if (showErrors)
-					JOptionPane.showMessageDialog(null,
-							"File I/O error: " + ioe,
-							"Sound Clip Error",
-							JOptionPane.ERROR_MESSAGE);
+		if (sound) {
+			if (AudioSystem.isLineSupported(Port.Info.SPEAKER)) {
+				try {
+					Clip clip = null;        // the sound clip
+					AudioInputStream stream = AudioSystem.getAudioInputStream(url);
+
+					clip = AudioSystem.getClip();
+					clip.addLineListener(this);
+					clip.open(stream);
+					clip.start();
+				} catch (LineUnavailableException lue) {
+					if (showErrors)
+						JOptionPane.showMessageDialog(null,
+								"Speaker is unavailable for playback",
+								"Sound Clip Error",
+								JOptionPane.ERROR_MESSAGE);
+				} catch (UnsupportedAudioFileException uafe) {
+					if (showErrors)
+						JOptionPane.showMessageDialog(null,
+								"Sound clip file type is not supported",
+								"Sound Clip Error",
+								JOptionPane.ERROR_MESSAGE);
+				} catch (IOException ioe) {
+					if (showErrors)
+						JOptionPane.showMessageDialog(null,
+								"File I/O error: " + ioe,
+								"Sound Clip Error",
+								JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 	}
@@ -109,6 +104,12 @@ public class PlayClip implements LineListener
 	/**
 	 * Class test and validation.
 	 */
+
+	public static void soundToggle() {
+		if (sound)
+			sound = false;
+		else sound  = true;
+	}
 
 	public static void main(String[] args)
 	{

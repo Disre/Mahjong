@@ -20,29 +20,29 @@ public class Model {
 	}
 
 	public boolean isTileOpen(Tile t) {
-//		if (!t.isInPlay())
-//			return false;
-//		if (t.getLayer() == 3 && searchTiles.get(0).isInPlay())
-//				return false;
-////		//covered
-//		if (t.getLayer() <= 2)
-//			if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1) != null)
-//				if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1).isInPlay())
-//					return false;
-////		//side
-//		if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()) != null && getTile(t.getRow(), t.getColumn()+1, t.getLayer()) != null)
-//			if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()).isInPlay() && getTile(t.getRow(), t.getColumn()+1, t.getLayer()).isInPlay())
-//				return false;
-////		//special
-//		if (t.getLayer() == 0 && t.getRow() == 8 && t.getColumn() == 13)
-//			if (getTile(8, 14, 0).isInPlay())
-//				return false;
-//		if (t.getLayer() == 0 && (t.getRow() == 3 || t.getRow() == 4)) {
-//			if (t.getColumn() == 1 && getTile(8, 0, 0).isInPlay())
-//				return false;
-//			if (t.getColumn() == 12 && getTile(8, 13, 0).isInPlay())
-//				return false;
-//		}
+		if (!t.isInPlay())
+			return false;
+		if (t.getLayer() == 3 && searchTiles.get(0).isInPlay())
+				return false;
+//		//covered
+		if (t.getLayer() <= 2)
+			if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1) != null)
+				if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1).isInPlay())
+					return false;
+//		//side
+		if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()) != null && getTile(t.getRow(), t.getColumn()+1, t.getLayer()) != null)
+			if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()).isInPlay() && getTile(t.getRow(), t.getColumn()+1, t.getLayer()).isInPlay())
+				return false;
+//		//special
+		if (t.getLayer() == 0 && t.getRow() == 8 && t.getColumn() == 13)
+			if (getTile(8, 14, 0).isInPlay())
+				return false;
+		if (t.getLayer() == 0 && (t.getRow() == 3 || t.getRow() == 4)) {
+			if (t.getColumn() == 1 && getTile(8, 0, 0).isInPlay())
+				return false;
+			if (t.getColumn() == 12 && getTile(8, 13, 0).isInPlay())
+				return false;
+		}
 		return true;
 	}
 
