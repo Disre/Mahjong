@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Model {
 
@@ -8,6 +8,14 @@ public class Model {
 
 	public Model () {
 		prepareTiles();
+		Collections.shuffle(tiles);
+		randomizeTiles();
+	}
+
+	public Model (int seed) {
+		prepareTiles();
+		Random rand = new Random(seed);
+		Collections.shuffle(tiles, rand);
 		randomizeTiles();
 	}
 
@@ -100,11 +108,11 @@ public class Model {
 	private void randomizerAssigner(int rows, int columns, int rowOffset, int colOffset, int layerOffset) {
 		for (int i = rows-1; i > -1; i--) {
 			for (int x = 0; x < columns; x++) {
-				int rand = (int) ((Math.random() * tiles.size()));
-				tiles.get(rand).setPosition(i + rowOffset, x + colOffset, layerOffset);
-				tiles.get(rand).setzOrder(num++);
-				searchTiles.add(tiles.get(rand));
-				tiles.remove(rand);
+//				int rand = (int) ((Math.random() * tiles.size()));
+				tiles.get(0).setPosition(i + rowOffset, x + colOffset, layerOffset);
+				tiles.get(0).setzOrder(num++);
+				searchTiles.add(tiles.get(0));
+				tiles.remove(0);
 			}
 		}
 	}

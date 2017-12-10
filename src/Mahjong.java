@@ -63,6 +63,25 @@ public class Mahjong extends JFrame {
 		game.add(restart);
 
 		JMenuItem numbered = new JMenuItem("Numbered");
+		numbered.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String seed = JOptionPane.showInputDialog(getRootPane(), "Enter a game number:");
+				if (seed == null)
+					return;
+
+				while (!(seed.matches("^-?\\d+$"))){
+					seed = JOptionPane.showInputDialog(getRootPane(), "Enter a valid number:");
+					if (seed == null)
+						return;
+				}
+				remove(gamePlay);
+				gamePlay = null;
+//				gamePlay.removeAll();
+				add(gamePlay = new Board(Integer.parseInt(seed)));
+				repaint();
+				revalidate();
+			}
+		});
 		game.add(numbered);
 
 		JMenuItem quit = new JMenuItem("Quit");

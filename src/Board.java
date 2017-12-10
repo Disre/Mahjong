@@ -25,6 +25,17 @@ public class Board extends JPanel{
 		this.repaint();
 	}
 
+	public Board(int seed) {
+		setLayout(null);
+		setPreferredSize(getSize());
+		setBackground(Color.decode("#8caad2"));
+		model = new Model(seed);
+		layoutTiles();
+		makeHistory();
+		setVisible(true);
+		this.repaint();
+	}
+
 	private void addTile(Tile t/*, int zOrder*/) {
 		t.setzOrder(t.getzOrder());
 		t.setSize(60, 85);
