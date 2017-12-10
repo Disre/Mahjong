@@ -6,11 +6,11 @@ public class Model {
 	private ArrayList<Tile> searchTiles = new ArrayList<>();
 	private int num = 0;
 
-	private ArrayList<ArrayList<Tile>> layer0 = new ArrayList<>();
-	private ArrayList<ArrayList<Tile>> layer1 = new ArrayList<>();
-	private ArrayList<ArrayList<Tile>> layer2 = new ArrayList<>();
-	private ArrayList<ArrayList<Tile>> layer3 = new ArrayList<>();
-	private ArrayList<ArrayList<Tile>> layer4 = new ArrayList<>();
+//	private ArrayList<ArrayList<Tile>> layer0 = new ArrayList<>();
+//	private ArrayList<ArrayList<Tile>> layer1 = new ArrayList<>();
+//	private ArrayList<ArrayList<Tile>> layer2 = new ArrayList<>();
+//	private ArrayList<ArrayList<Tile>> layer3 = new ArrayList<>();
+//	private ArrayList<ArrayList<Tile>> layer4 = new ArrayList<>();
 
 	public Model () {
 		prepareTiles();
@@ -18,18 +18,39 @@ public class Model {
 	}
 
 	public boolean isTileOpen(Tile t) {
-		if (t.getLayer() == 4)
-			return true;
-		if (t.getLayer() == 3 && layer4.get(0).get(0).isVisible())
+		if (!t.isInPlay())
+			return false;
+
+//		if (!t.isInPlay())
+//			return false;
+//		if (t.getLayer() == 4)
+//			return true;
+		if (t.getLayer() == 3 && searchTiles.get(0).isInPlay())
 				return false;
+//		//covered
 		if (t.getLayer() <= 2)
 			if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1) != null)
-				if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1).isVisible())
+				if (getTile(t.getRow(), t.getColumn(), t.getLayer()+1).isInPlay())
 					return false;
+//		//side
 		if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()) != null && getTile(t.getRow(), t.getColumn()+1, t.getLayer()) != null)
-			if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()).isVisible() && getTile(t.getRow(), t.getColumn()+1, t.getLayer()).isVisible())
+			if (getTile(t.getRow(), t.getColumn()-1, t.getLayer()).isInPlay() && getTile(t.getRow(), t.getColumn()+1, t.getLayer()).isInPlay())
 				return false;
+//		//special
+		if (t.getLayer() == 0 && t.getRow() == 8 && t.getColumn() == 13)
+			if (getTile(8, 14, 0).isInPlay())
+				return false;
+		if (t.getLayer() == 0 && (t.getRow() == 3 || t.getRow() == 4)) {
+			if (t.getColumn() == 1 && getTile(8, 0, 0).isInPlay())
+				return false;
+			if (t.getColumn() == 12 && getTile(8, 13, 0).isInPlay())
+				return false;
+		}
 		return true;
+	}
+
+	public ArrayList<Tile> getTiles() {
+		return searchTiles;
 	}
 
 	private Tile getTile(int row, int column, int layer) {
@@ -40,7 +61,6 @@ public class Model {
 	}
 
 	public boolean didILose() {
-		System.out.println("not yet");
 		int x = 0;
 		for (Tile t: searchTiles) {
 			x++;
@@ -50,24 +70,23 @@ public class Model {
 						return false;
 			}
 		}
-		System.out.println("yes");
 		return true;
 	}
 
-	public ArrayList<ArrayList<Tile>> getLayer(int layer) {
-		if (layer == 0)
-			return layer0;
-		if (layer == 1)
-			return layer1;
-		if (layer == 2)
-			return layer2;
-		if (layer == 3)
-			return layer3;
-		if (layer == 4)
-			return layer4;
-		else
-			return null;
-	}
+//	public ArrayList<ArrayList<Tile>> getLayer(int layer) {
+//		if (layer == 0)
+//			return layer0;
+//		if (layer == 1)
+//			return layer1;
+//		if (layer == 2)
+//			return layer2;
+//		if (layer == 3)
+//			return layer3;
+//		if (layer == 4)
+//			return layer4;
+//		else
+//			return null;
+//	}
 
 	private void prepareTiles() {
 
@@ -104,22 +123,22 @@ public class Model {
 		}
 	}
 
-	private void randomizerAssigner(ArrayList<ArrayList<Tile>> layer, int rows, int columns, int rowOffset, int colOffset, int layerOffset) {
-		for (int i = 0; i < rows; i++) {
-			layer.add(new ArrayList<>());
+	private void randomizerAssigner(/*ArrayList<ArrayList<Tile>> layer,*/ int rows, int columns, int rowOffset, int colOffset, int layerOffset) {
+		for (int i = rows-1; i > -1; i--) {
+//			layer.add(new ArrayList<>());
 			for (int x = 0; x < columns; x++) {
 				int rand = (int) ((Math.random() * tiles.size()));
 				tiles.get(rand).setPosition(i + rowOffset, x + colOffset, layerOffset);
-				layer.get(i).add(tiles.get(rand));
+//				layer.get(i).add(tiles.get(rand));
+				tiles.get(rand).setzOrder(num++);
 				searchTiles.add(tiles.get(rand));
 				tiles.remove(rand);
-				num++;
 			}
 		}
 	}
 
 	private void randomizeTiles(ArrayList<Tile> tiles) {
-		randomizerAssigner(layer4,1, 1, 4,7, 4);
+		randomizerAssigner(/*layer4,*/1, 1, 4,7, 4);
 //		int rand;
 //		rand = (int) ((Math.random() * tiles.size()));
 //		tiles.get(rand).setPosition(4, 7, 4);
@@ -133,7 +152,7 @@ public class Model {
 //
 //
 //
-		randomizerAssigner(layer3, 2, 2, 3, 6, 3);
+		randomizerAssigner(/*layer3,*/ 2, 2, 3, 6, 3);
 //		for (int i = 0; i < 2; i++) {
 //			layer3.add(new ArrayList<>());
 //			for (int x = 0; x < 2; x++) {
@@ -146,7 +165,7 @@ public class Model {
 //			}
 //		}
 //
-		randomizerAssigner(layer2, 4, 4,2, 5, 2);
+		randomizerAssigner(/*layer2,*/ 4, 4,2, 5, 2);
 //		for (int i = 0; i < 4; i++) {
 //			layer2.add(new ArrayList<>());
 //			for (int x = 0; x < 4; x++) {
@@ -159,7 +178,7 @@ public class Model {
 //			}
 //		}
 //
-		randomizerAssigner(layer1, 6, 6, 1, 4, 1);
+		randomizerAssigner(/*layer1,*/ 6, 6, 1, 4, 1);
 //		for (int i = 0; i < 6; i++) {
 //			layer1.add(new ArrayList<>());
 //			for (int x = 0; x < 6; x++) {
@@ -172,7 +191,8 @@ public class Model {
 //			}
 //		}
 //
-		randomizerAssigner(layer0, 1, 12, 7, 1, 0);
+		randomizerAssigner(/*layer0,*/ 1, 1, 8, 0, 0);
+		randomizerAssigner(/*layer0,*/ 1, 12, 7, 1, 0);
 //		layer0.add(new ArrayList<>());
 //		for (int i = 0; i < 12; i++) {
 //			rand = (int) ((Math.random() * tiles.size()));
@@ -183,7 +203,7 @@ public class Model {
 //			num++;
 //		}
 //
-		randomizerAssigner(layer0, 1, 8, 6, 3, 0);
+		randomizerAssigner(/*layer0,*/ 1, 8, 6, 3, 0);
 //		layer0.add(new ArrayList<>());
 //		for (int i = 0; i < 8; i++) {
 //			rand = (int) ((Math.random() * tiles.size()));
@@ -194,7 +214,7 @@ public class Model {
 //			num++;
 //		}
 //
-		randomizerAssigner(layer0, 1, 10, 5, 2, 0);
+		randomizerAssigner(/*layer0,*/ 1, 10, 5, 2, 0);
 //		layer0.add(new ArrayList<>());
 //		for (int i = 0; i < 10; i++) {
 //			rand = (int) ((Math.random() * tiles.size()));
@@ -205,7 +225,7 @@ public class Model {
 //			num++;
 //		}
 //
-		randomizerAssigner(layer0, 1, 12, 4, 1, 0);
+		randomizerAssigner(/*layer0,*/ 1, 12, 4, 1, 0);
 //		layer0.add(new ArrayList<>());
 //		for (int i = 0; i < 12; i++) {
 //			rand = (int) ((Math.random() * tiles.size()));
@@ -216,7 +236,7 @@ public class Model {
 //			num++;
 //		}
 //
-		randomizerAssigner(layer0, 1, 12, 3, 1, 0);
+		randomizerAssigner(/*layer0,*/ 1, 12, 3, 1, 0);
 //		layer0.add(new ArrayList<>());
 //		for (int i = 0; i < 12; i++) {
 //			rand = (int) ((Math.random() * tiles.size()));
@@ -227,7 +247,7 @@ public class Model {
 //			num++;
 //		}
 //
-		randomizerAssigner(layer0, 1, 10, 2, 2 ,0);
+		randomizerAssigner(/*layer0,*/ 1, 10, 2, 2 ,0);
 //		layer0.add(new ArrayList<>());
 //		for (int i = 0; i < 10; i++) {
 //			rand = (int) ((Math.random() * tiles.size()));
@@ -238,7 +258,7 @@ public class Model {
 //			num++;
 //		}
 //
-		randomizerAssigner(layer0, 1, 8, 1, 3, 0);
+		randomizerAssigner(/*layer0,*/ 1, 8, 1, 3, 0);
 //		layer0.add(new ArrayList<>());
 //		for (int i = 0; i < 8; i++) {
 //			rand = (int) ((Math.random() * tiles.size()));
@@ -249,7 +269,7 @@ public class Model {
 //			num++;
 //		}
 //
-		randomizerAssigner(layer0, 1, 12, 0, 1, 0);
+		randomizerAssigner(/*layer0,*/ 1, 12, 0, 1, 0);
 //		layer0.add(new ArrayList<>());
 //		for (int i = 0; i < 12; i++) {
 //			rand = (int) ((Math.random() * tiles.size()));
@@ -260,7 +280,7 @@ public class Model {
 //			num++;
 //		}
 //
-		randomizerAssigner(layer0, 1, 1, 8, 0, 0);
+
 //		layer0.add(new ArrayList<>());
 //		rand = (int) ((Math.random() * tiles.size()));
 //		tiles.get(rand).setPosition(8, 0, 0);
@@ -269,7 +289,7 @@ public class Model {
 //		tiles.remove(rand);
 //		num++;
 //
-		randomizerAssigner(layer0, 1, 1, 8, 13, 0);
+		randomizerAssigner(/*layer0,*/ 1, 1, 8, 13, 0);
 //		rand = (int) ((Math.random() * tiles.size()));
 //		tiles.get(rand).setPosition(8, 13, 0);
 //		layer0.get(8).add(tiles.get(rand));
@@ -277,7 +297,7 @@ public class Model {
 //		tiles.remove(rand);
 //		num++;
 //
-		randomizerAssigner(layer0, 1, 1, 8, 14, 0);
+		randomizerAssigner(/*layer0,*/ 1, 1, 8, 14, 0);
 //		rand = (int) ((Math.random() * tiles.size()));
 //		tiles.get(rand).setPosition(8, 14, 0);
 //		layer0.get(8).add(tiles.get(rand));

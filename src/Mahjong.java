@@ -5,17 +5,18 @@ sound?
 fireworks/win screen
 show removed tiles
 numbered game
-redo - extra credit
-highlight selected objects
+highlight selected objects √
 
 optionally :
-lose screen
+redo - extra credit
+lose screen √
 shadows
  */
 public class Mahjong extends JFrame {
 
 	private JMenuBar menu;
 	private Board gamePlay;
+	private JPanel moves;
 
 	public Mahjong() {
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -27,7 +28,7 @@ public class Mahjong extends JFrame {
 		});
 
 		this.setTitle("Mahjong");
-		setSize(1200,800);
+		setSize(1000,700);
 		setResizable(false);
 		add(gamePlay = new Board());
 		makeMenu();

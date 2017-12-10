@@ -7,6 +7,8 @@ public class Tile extends JPanel {
 	private int column;
 	private int layer;
 	private int zOrder;
+	private boolean selected;
+	private boolean inPlay;
 
 	protected static int height;
 	protected static int width;
@@ -59,6 +61,8 @@ public class Tile extends JPanel {
 	}
 
     public Tile() {
+		selected = false;
+		inPlay = true;
         setPreferredSize(new Dimension(width + side, height + side));
     }
 
@@ -75,6 +79,10 @@ public class Tile extends JPanel {
 	    Graphics2D g2 = (Graphics2D) g;
 	    g2.setPaint(main);
 	    g.fillRect(side, 0, width, height);
+	    if (selected) {
+	    	g2.setPaint(new Color(0,100,100,80));
+		    g.fillRect(side, 0, width, height);
+	    }
 
 	    g2.setPaint(left);
 		g.fillPolygon(p1);
@@ -108,6 +116,10 @@ public class Tile extends JPanel {
 	    this.zOrder = zOrder;
     }
 
+    public void setPlay (boolean b) {
+    	inPlay = b;
+	}
+
 	public int getRow() {
 		return row;
 	}
@@ -122,6 +134,18 @@ public class Tile extends JPanel {
 
 	public int getzOrder() {
 		return zOrder;
+	}
+
+	public void isSelected(boolean b) {
+		if (b) {
+			selected = true;
+		} else {
+			selected = false;
+		}
+	}
+
+	public boolean isInPlay() {
+		return inPlay;
 	}
 }
 
