@@ -45,12 +45,6 @@ public class Board extends JPanel{
 					} else if (selected != null) {
 						if (selected.matches(temp)) {
 							addHistory(selected, temp);
-//							temp.isSelected(false);
-//							selected.setVisible(false);
-//							selected
-//							temp.setVisible(false);
-//							moves.push(selected);
-//							moves.push(temp);
 							selected = null;
 							if (moves.size() == 144)
 								youWin();
@@ -107,33 +101,9 @@ public class Board extends JPanel{
 
 	private void layoutTiles() {
 		ArrayList<ArrayList<Tile>> layer;
-		int zOrder = 0;
-
 		for (Tile t: model.getTiles()) {
 			addTile(t);
 		}
-//		for (int y = 4; y > -1; y--) {
-//			layer = model.getLayer(y);
-//			for (int x = layer.size() - 1; x > -1; x--) {
-//				for (int i = 0; i < layer.get(x).size(); i++) {
-//					if (y == 0 && x == 8)
-//						break;
-//					if (y == 0 && x == 4 && i == 0) {
-//						addTile(layer.get(8).get(0), zOrder);
-//						zOrder++;
-//					}
-//					addTile(layer.get(x).get(i), zOrder);
-//					zOrder++;
-//					if (y == 0 && x == 3 && i == 11) {
-//						addTile(layer.get(8).get(1), zOrder);
-//						zOrder++;
-//						addTile(layer.get(8).get(2), zOrder);
-//						zOrder++;
-//					}
-//				}
-//
-//			}
-//		}
 	}
 
 	private void makeHistory() {
