@@ -76,7 +76,7 @@ public class Mahjong extends JFrame {
 		JMenuItem quit = new JMenuItem("Quit");
 		quit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (0 == JOptionPane.showConfirmDialog(getRootPane(),"Are you sure you want to quit","Quit",JOptionPane.YES_NO_OPTION, 1))
+				if (0 == JOptionPane.showConfirmDialog(getRootPane(),"Are you sure you want to quit?","Quit",JOptionPane.YES_NO_OPTION, 1))
 					System.exit(0);
 			}
 		});
