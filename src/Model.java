@@ -4,7 +4,6 @@ public class Model {
 
 	private ArrayList<Tile> tiles = new ArrayList<>();
 	private ArrayList<Tile> searchTiles = new ArrayList<>();
-	private int num = 0;
 
 	public Model () {
 		prepareTiles();
@@ -108,9 +107,7 @@ public class Model {
 	private void randomizerAssigner(int rows, int columns, int rowOffset, int colOffset, int layerOffset) {
 		for (int i = rows-1; i > -1; i--) {
 			for (int x = 0; x < columns; x++) {
-//				int rand = (int) ((Math.random() * tiles.size()));
 				tiles.get(0).setPosition(i + rowOffset, x + colOffset, layerOffset);
-				tiles.get(0).setzOrder(num++);
 				searchTiles.add(tiles.get(0));
 				tiles.remove(0);
 			}

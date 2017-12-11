@@ -3,10 +3,10 @@ import java.awt.event.*;
 /* to do:
 sound?                      √
 fireworks/win screen        √
-show removed tiles
+show removed tiles          √
 numbered game               √
 highlight selected objects  √
-stupid help thing...
+stupid help thing...        √
 
 optionally :
 redo - extra credit
