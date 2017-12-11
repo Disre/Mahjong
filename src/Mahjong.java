@@ -5,7 +5,6 @@ public class Mahjong extends JFrame {
 
 	private JMenuBar menu;
 	private Board gamePlay;
-	private JPanel moves;
 
 	public Mahjong() {
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -35,7 +34,6 @@ public class Mahjong extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				remove(gamePlay);
 				gamePlay = null;
-//				gamePlay.removeAll();
 				add(gamePlay = new Board());
 				repaint();
 				revalidate();
@@ -65,7 +63,6 @@ public class Mahjong extends JFrame {
 				}
 				remove(gamePlay);
 				gamePlay = null;
-//				gamePlay.removeAll();
 				add(gamePlay = new Board(Integer.parseInt(seed)));
 				repaint();
 				revalidate();
