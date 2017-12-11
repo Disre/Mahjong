@@ -1,18 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
-/* to do:
-sound?                      √
-fireworks/win screen        √
-show removed tiles          √
-numbered game               √
-highlight selected objects  √
-stupid help thing...        √
 
-optionally :
-redo - extra credit
-lose screen                 √
-shadows
- */
 public class Mahjong extends JFrame {
 
 	private JMenuBar menu;
