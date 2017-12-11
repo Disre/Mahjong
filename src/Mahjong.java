@@ -10,7 +10,7 @@ public class Mahjong extends JFrame {
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				if (0 == JOptionPane.showConfirmDialog(getRootPane(),"Are you sure you want to quit","Quit",JOptionPane.YES_NO_OPTION, 1))
+				if (0 == JOptionPane.showConfirmDialog(getRootPane(),"Are you sure you want to quit?","Quit",JOptionPane.YES_NO_OPTION, 1))
 					System.exit(0);
 			}
 		});
@@ -32,11 +32,13 @@ public class Mahjong extends JFrame {
 		JMenuItem play = new JMenuItem("Play New Game");
 		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				remove(gamePlay);
-				gamePlay = null;
-				add(gamePlay = new Board());
-				repaint();
-				revalidate();
+				if (0 == JOptionPane.showConfirmDialog(getRootPane(),"Are you sure you want to start a new game?","New Game",JOptionPane.YES_NO_OPTION, 1)) {
+					remove(gamePlay);
+					gamePlay = null;
+					add(gamePlay = new Board());
+					repaint();
+					revalidate();
+				}
 			}
 		});
 		game.add(play);
@@ -44,7 +46,8 @@ public class Mahjong extends JFrame {
 		JMenuItem restart = new JMenuItem("Restart Game");
 		restart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gamePlay.resetGame();
+				if (0 == JOptionPane.showConfirmDialog(getRootPane(),"Are you sure you want to restart?","Restart",JOptionPane.YES_NO_OPTION, 1))
+					gamePlay.resetGame();
 			}
 		});
 		game.add(restart);
